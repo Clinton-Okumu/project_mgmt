@@ -1,9 +1,9 @@
 package db
 
 import (
+	"backend/internal/task"
+	"backend/internal/user"
 	"log"
-	"project_mgmt/internal/task"
-	"project_mgmt/internal/user"
 
 	"gorm.io/gorm"
 )
