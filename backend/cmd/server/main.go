@@ -3,6 +3,8 @@ package main
 import (
 	"backend/config"
 	"backend/internal/db"
+	"backend/internal/task"
+	"backend/internal/user"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -20,6 +22,20 @@ func main() {
 
 	// Initialize Gin router
 	router := gin.Default()
+
+	// User Routes
+	userRepo := user.NewRepository(database)
+	userService := user.NewService(userRepo)
+	userHandler := user.NewHandler(userService)
+	userRoutes := router.Group("/api")
+	userHandler.RegisterRoutes(userRoutes)
+
+	// Task Routes
+	taskRepo := task.NewRepository(database)
+	taskService := task.NewService(taskRepo)
+	taskHandler := task.NewHandler(taskService)
+	taskRoutes := router.Group("/api")
+	taskHandler.RegisterRoutes(taskRoutes)
 
 	// Define a simple welcome route
 	router.GET("/", func(c *gin.Context) {
