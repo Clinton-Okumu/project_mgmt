@@ -98,3 +98,17 @@ func (s *Service) userToResponse(user *User) *Response {
 		UpdatedAt: user.UpdatedAt,
 	}
 }
+
+func (s *Service) Authenticate(email, password string) (*User, error) {
+	user, err := s.repo.GetByEmail(email)
+	if err != nil {
+		return nil, ErrNotFound
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if err != nil {
+		return nil, errors.New("invalid password")
+	}
+
+	return user, nil
+}
