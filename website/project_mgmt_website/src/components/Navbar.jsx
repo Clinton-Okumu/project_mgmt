@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 
 const NavbarLinks = [
-  { id: 1, title: "Features", link: "/features" },
-  { id: 2, title: "Comparison", link: "/comparison" },
-  { id: 3, title: "Pricing", link: "/pricing" },
+  { id: 1, title: "Features", link: "#" },
+  { id: 2, title: "Comparison", link: "#" },
+  { id: 3, title: "Pricing", link: "#" },
 ];
 
 const Navbar = () => {
