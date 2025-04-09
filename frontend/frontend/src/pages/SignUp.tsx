@@ -5,9 +5,9 @@ import {
   AuthInput,
   AuthButton,
   SignupIcon
-} from '../components/AuthComponents.tsx';
+} from '../components/Auth/AuthComponents.tsx';
 
-const SignupPage: React.FC = () => {
+const SignupPage = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
