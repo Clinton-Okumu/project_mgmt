@@ -25,6 +25,8 @@ func main() {
 	// Initialize Gin router
 	router := gin.Default()
 
+	router.StaticFile("/favicon.ico", "./static/favicon.ico")
+
 	api := router.Group("/api")
 
 	// User Routes (Register and user related routes)
