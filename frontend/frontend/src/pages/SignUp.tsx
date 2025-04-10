@@ -28,14 +28,15 @@ const SignupPage = () => {
       });
       console.log("Registration successful:", response.message);
       navigate("/login");
-    }  catch (error: unknown) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Signup failed:", error.message);
         setError(error.message);
       } else {
         setError("An unknown error occurred during signup.");
       }
- };
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">

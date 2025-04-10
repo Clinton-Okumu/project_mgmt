@@ -22,7 +22,7 @@ const LoginPage = () => {
     try {
       const response = await loginUser({ email, password });
       console.log("Login successful:", response.token);
-      navigate("/home");
+      navigate("/dashboard");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Login failed:", error.message);
