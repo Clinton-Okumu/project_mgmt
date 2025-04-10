@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "https://api1.tech-thrive.software/";
+const API_URL = "https://api1.tech-thrive.software/api/";
 
 const getToken = (type: "access"): string | null => {
   return localStorage.getItem(type);

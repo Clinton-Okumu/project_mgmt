@@ -1,21 +1,19 @@
-import { apiRequest } from "./api"; // Import the generic apiRequest function
+import { apiRequest } from "./api.ts";
 
 interface RegisterPayload {
+  name: string;
   email: string;
   password: string;
-  // Add other registration fields as needed
 }
 
 interface RegisterResponse {
-  id: string; // Or whatever the backend returns on successful registration
-  email: string;
-  // Add other response fields as needed
+  message: string;
 }
 
 export const registerUser = async (
   userData: RegisterPayload,
 ): Promise<RegisterResponse> => {
-  return apiRequest<RegisterResponse>("post", "register", userData, {}, false); // No auth needed
+  return apiRequest<RegisterResponse>("post", "register", userData, {}, false);
 };
 
 interface LoginPayload {
@@ -40,8 +38,7 @@ export const loginUser = async (
     credentials,
     {},
     false,
-  ); // No auth needed
-  // Store the token upon successful login
+  );
   setToken("access", response.token);
   return response;
 };
