@@ -7,13 +7,19 @@ interface RegisterPayload {
 }
 
 interface RegisterResponse {
-  message: string;
+  token: string;
 }
 
 export const registerUser = async (
   userData: RegisterPayload,
 ): Promise<RegisterResponse> => {
-  return apiRequest<RegisterResponse>("post", "register", userData, {}, false);
+  const response = await apiRequest<RegisterResponse>(
+    "post",
+    "register",
+    userData,
+  );
+  setToken("access", response.token);
+  return response;
 };
 
 interface LoginPayload {
@@ -36,8 +42,6 @@ export const loginUser = async (
     "post",
     "login",
     credentials,
-    {},
-    false,
   );
   setToken("access", response.token);
   return response;
