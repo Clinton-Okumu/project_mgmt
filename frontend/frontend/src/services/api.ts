@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://127.0.0.1:8000/api/";
+const API_URL = "https://api1.tech-thrive.software/";
 
 const getToken = (type: "access"): string | null => {
   return localStorage.getItem(type);
@@ -16,7 +16,7 @@ export const setNavigate = (nav: ReturnType<typeof useNavigate>) => {
 export const apiRequest = async <T>(
   method: "get" | "post" | "put" | "delete" | "patch",
   url: string,
-  data: unknown = null, // Replaced 'any' with 'unknown'
+  data: unknown = null,
   headers: Record<string, string> = {},
 ): Promise<T> => {
   const token = getToken("access");
