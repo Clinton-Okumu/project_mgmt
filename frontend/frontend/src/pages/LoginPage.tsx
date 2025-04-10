@@ -1,20 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   AuthForm,
   AuthHeader,
   AuthInput,
   AuthButton,
-  LoginIcon
-} from '../components/Auth/AuthComponents.tsx';
+  LoginIcon,
+} from "../components/Auth/AuthComponents.tsx";
+import { loginUser } from "../services/auth.ts";
+import { useNavigate } from "react-router-dom"; // FIXED: Added missing import
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your authentication logic here
-    console.log('Logging in with:', email, password);
+    setError(null);
+
+    try {
+      const response = await loginUser({ email, password });
+      console.log("Login successful:", response.token);
+      navigate("/home");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Login failed:", error.message);
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred during login.");
+      }
+    }
+
+    console.log("Logging in with:", email, password);
   };
 
   return (
@@ -24,14 +42,19 @@ const LoginPage = () => {
           title="Welcome back"
           subtitle={
             <>
-              Don't have an account?{' '}
-              <a href="/signup" className="text-purple-500 hover:text-purple-400">
+              Don&apos;t have an account?{" "}
+              <a
+                href="/signup"
+                className="text-purple-500 hover:text-purple-400"
+              >
                 Sign up
               </a>
             </>
           }
           icon={<LoginIcon />}
         />
+
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
         <AuthForm onSubmit={handleSubmit}>
           <AuthInput
@@ -51,7 +74,10 @@ const LoginPage = () => {
           />
 
           <div className="flex justify-end mb-6">
-            <a href="/forgot-password" className="text-sm text-purple-500 hover:text-purple-400">
+            <a
+              href="/forgot-password"
+              className="text-sm text-purple-500 hover:text-purple-400"
+            >
               Forgot your password?
             </a>
           </div>
