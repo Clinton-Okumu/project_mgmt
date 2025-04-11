@@ -1,11 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from "react";
 
-interface AuthFormProps {
-  children: ReactNode;
-  onSubmit: (e: React.FormEvent) => void;
-}
-
-export const AuthForm: React.FC<AuthFormProps> = ({ children, onSubmit }) => {
+export const AuthForm = ({ children, onSubmit }) => {
   return (
     <form onSubmit={onSubmit} className="w-full">
       {children}
@@ -13,13 +8,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ children, onSubmit }) => {
   );
 };
 
-interface AuthHeaderProps {
-  title: string;
-  subtitle: ReactNode;
-  icon: ReactNode;
-}
-
-export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, icon }) => {
+export const AuthHeader = ({ title, subtitle, icon }) => {
   return (
     <div className="flex flex-col items-center mb-6">
       <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-6">
@@ -31,22 +20,13 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, icon })
   );
 };
 
-interface AuthInputProps {
-  type: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  className?: string;
-}
-
-export const AuthInput: React.FC<AuthInputProps> = ({
+export const AuthInput = ({
   type,
   placeholder,
   value,
   onChange,
   required = true,
-  className = "bg-white"
+  className = "bg-white",
 }) => {
   return (
     <div className="mb-4">
@@ -62,18 +42,11 @@ export const AuthInput: React.FC<AuthInputProps> = ({
   );
 };
 
-interface AuthButtonProps {
-  type?: "button" | "submit" | "reset";
-  className?: string;
-  onClick?: () => void;
-  children: ReactNode;
-}
-
-export const AuthButton: React.FC<AuthButtonProps> = ({
+export const AuthButton = ({
   type = "submit",
   className = "",
   onClick,
-  children
+  children,
 }) => {
   return (
     <button
@@ -86,7 +59,7 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
   );
 };
 
-export const LoginIcon: React.FC = () => (
+export const LoginIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -104,7 +77,7 @@ export const LoginIcon: React.FC = () => (
   </svg>
 );
 
-export const SignupIcon: React.FC = () => (
+export const SignupIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

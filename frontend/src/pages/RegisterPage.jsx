@@ -5,18 +5,18 @@ import {
   AuthInput,
   AuthButton,
   SignupIcon,
-} from "../components/Auth/AuthComponents.tsx";
+} from "../components/auth/AuthComponents.jsx";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../services/auth.ts";
+import { registerUser } from "../services/AuthService.jsx";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
@@ -28,7 +28,7 @@ const SignupPage = () => {
       });
       console.log("Registration successful:", response.message);
       navigate("/login");
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         console.error("Signup failed:", error.message);
         setError(error.message);

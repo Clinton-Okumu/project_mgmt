@@ -5,17 +5,17 @@ import {
   AuthInput,
   AuthButton,
   LoginIcon,
-} from "../components/Auth/AuthComponents.tsx";
-import { loginUser } from "../services/auth.ts";
-import { useNavigate } from "react-router-dom"; // FIXED: Added missing import
+} from "../components/auth/AuthComponents.jsx";
+import { loginUser } from "../services/AuthService.jsx";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
@@ -23,7 +23,7 @@ const LoginPage = () => {
       const response = await loginUser({ email, password });
       console.log("Login successful:", response.token);
       navigate("/dashboard");
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         console.error("Login failed:", error.message);
         setError(error.message);
