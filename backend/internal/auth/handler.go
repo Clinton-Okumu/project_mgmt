@@ -24,7 +24,7 @@ func (h *Handler) Register(c *gin.Context) {
 		return
 	}
 
-	res, err := h.userService.Create(req)
+	_, err := h.userService.Create(req)
 	if err != nil {
 		status := http.StatusInternalServerError
 		if err == user.ErrEmailExists {
