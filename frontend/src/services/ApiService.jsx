@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://api1.tech-thrive.software/api/";
+const API_URL = "http://localhost:8080/api/";
 
 const getToken = (type) => {
   return localStorage.getItem(type);
