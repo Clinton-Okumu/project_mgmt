@@ -16,10 +16,10 @@ func NewHandler(service *Service) *Handler {
 }
 
 func (h *Handler) RegisterRoutes(router *gin.RouterGroup) {
-	router.POST("/users", h.CreateUser)
-	router.GET("/users/:id", h.GetUser)
-	router.PUT("/users/:id", h.UpdateUser)
-	router.DELETE("/users/:id", h.DeleteUser)
+	router.POST("/", h.CreateUser)
+	router.GET("/:id", h.GetUser)
+	router.PUT("/:id", h.UpdateUser)
+	router.DELETE("/:id", h.DeleteUser)
 }
 
 func (h *Handler) CreateUser(c *gin.Context) {
