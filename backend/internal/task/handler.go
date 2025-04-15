@@ -16,10 +16,10 @@ func NewHandler(service *Service) *Handler {
 }
 
 func (h *Handler) RegisterRoutes(router *gin.RouterGroup) {
-	router.POST("/tasks", h.CreateTask)
-	router.GET("/tasks/:id", h.GetTask)
-	router.PUT("/tasks/:id", h.UpdateTask)
-	router.DELETE("/tasks/:id", h.DeleteTask)
+	router.POST("/", h.CreateTask)
+	router.GET("/:id", h.GetTask)
+	router.PUT("/:id", h.UpdateTask)
+	router.DELETE("/:id", h.DeleteTask)
 	router.GET("/projects/:projectID/tasks", h.ListTasksByProject)
 	router.GET("/users/:userID/tasks", h.ListTasksByUser)
 }
