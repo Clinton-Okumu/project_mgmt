@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/RegisterPage";
-import AuthGuard from "./pages/AuthGuard";
 import Dashboard from "./pages/DashboardPage";
+import Projects from "./pages/ProjectsPage";
 
 const App = () => {
   return (
@@ -19,6 +19,7 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />} />
         {/* Protected route for the dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/projects" element={<Projects />} />
         {/* Redirect to login by default */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
