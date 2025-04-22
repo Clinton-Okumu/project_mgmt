@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,19 +8,24 @@ import {
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/RegisterPage";
 import Dashboard from "./pages/DashboardPage";
-import Projects from "./pages/ProjectsPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Auth routes */}
+        {/*public routes*/}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        {/* Protected route for the dashboard */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/projects" element={<Projects />} />
-        {/* Redirect to login by default */}
+
+        {/*Protected routes inside mainlayout*/}
+        <Route element={<MainLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+        </Route>
+
+        {/*default fallback*/}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

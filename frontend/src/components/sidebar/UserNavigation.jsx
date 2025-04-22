@@ -1,14 +1,14 @@
 import React from "react";
 import { Folder, Settings, LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // To handle navigation
+import { useLocation, useNavigate } from "react-router-dom";
 
 function UserNavItem({ icon, label, onClick }) {
   const Icon = icon;
   return (
     <li>
-      <button // Changed 'a' tag to 'button' for functionality
+      <button
         onClick={onClick}
-        className="flex items-center p-2 hover:bg-purple-600 rounded text-sm w-full text-left" // Added w-full and text-left for better button styling
+        className="flex items-center p-2 hover:bg-purple-600 rounded text-sm w-full text-left"
       >
         <Icon size={16} className="mr-2" />
         {label}
@@ -19,23 +19,19 @@ function UserNavItem({ icon, label, onClick }) {
 
 export default function UserNavigation() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
-    // Clear authentication tokens from localStorage (or wherever you store them)
     localStorage.removeItem("access");
     localStorage.removeItem("userId");
 
-    // Redirect the user to the login page
     navigate("/login");
-
-    // Optionally, you might want to perform other cleanup tasks here,
-    // like clearing user-specific data from your application state.
   };
 
   const userNavItems = [
     { icon: Folder, label: "My Subscription" },
     { icon: Settings, label: "Settings" },
-    { icon: LogOut, label: "Sign Out", onClick: handleLogout }, // Added onClick handler
+    { icon: LogOut, label: "Sign Out", onClick: handleLogout },
   ];
 
   return (
@@ -45,7 +41,9 @@ export default function UserNavigation() {
           key={index}
           icon={item.icon}
           label={item.label}
-          onClick={item.onClick} // Pass the onClick handler
+          onClick={item.onClick}
+          to={item.to}
+          isActive={item.to && location.pathname.startsWith(item.to)}
         />
       ))}
     </ul>
