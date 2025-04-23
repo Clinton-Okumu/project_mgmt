@@ -99,6 +99,21 @@ func (s *Service) UpdateProject(id uint, req UpdateRequest, requestorID string) 
 	return s.projectToResponse(project), nil
 }
 
+// DeleteProject handles the deletion of a project by ID with ownership check
+func (s *Service) DeleteProject(id uint, requestorID string) error {
+	project, err := s.repo.GetByID(id)
+	if err != nil {
+		return ErrProjectNotFound
+	}
+
+	// Verify ownership
+	if project.OwnerID != requestorID {
+		return ErrUnauthorizedAccess
+	}
+
+	return s.repo.Delete(id)
+}
+
 // Helper to convert DB model to API response
 func (s *Service) projectToResponse(p *Project) *Response {
 	return &Response{
