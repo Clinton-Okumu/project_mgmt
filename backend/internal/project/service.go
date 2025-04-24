@@ -126,3 +126,16 @@ func (s *Service) projectToResponse(p *Project) *Response {
 		UpdatedAt:     p.UpdatedAt,
 	}
 }
+
+func (s *Service) GetProjectsByOwnerID(ownerID string) ([]*Response, error) {
+	projects, err := s.repo.GetByOwner(ownerID)
+	if err != nil {
+		return nil, err
+	}
+
+	var responses []*Response
+	for _, p := range projects {
+		responses = append(responses, s.projectToResponse(&p))
+	}
+	return responses, nil
+}

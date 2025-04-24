@@ -20,6 +20,7 @@ func (h *Handlers) RegisterRoutes(router *gin.RouterGroup) {
 	router.GET("/:id", h.GetProjectHandler)
 	router.PUT("/:id", h.UpdateProjectHandler)
 	router.DELETE("/:id", h.DeleteProjectHandler)
+	router.GET("/myprojects", h.GetMyProjectsHandler)
 }
 
 // CreateProjectHandler handles POST /projects
@@ -142,4 +143,20 @@ func parseID(idParam string) (uint, error) {
 	var id uint
 	_, err := fmt.Sscanf(idParam, "%d", &id)
 	return id, err
+}
+
+func (h *Handlers) GetMyProjectsHandler(c *gin.Context) {
+	requestorID, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not retrieve user ID from context"})
+		return
+	}
+
+	projects, err := h.service.GetProjectsByOwnerID(fmt.Sprintf("%v", requestorID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch projects"})
+		return
+	}
+
+	c.JSON(http.StatusOK, projects)
 }

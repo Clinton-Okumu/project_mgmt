@@ -9,7 +9,6 @@ export default function ProjectsPage() {
       <PageHeader />
       <SearchBar />
       <ProjectCard />
-      {/* Add more project-specific components here */}
     </div>
   );
 }
