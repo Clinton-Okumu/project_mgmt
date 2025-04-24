@@ -11,8 +11,16 @@ type Handlers struct {
 	service *Service
 }
 
-func NewHandlers(service *Service) *Handlers {
+func NewHandler(service *Service) *Handlers {
 	return &Handlers{service: service}
+}
+
+func (h *Handlers) RegisterRoutes(router *gin.RouterGroup) {
+	router.POST("/", h.CreateProjectHandler)
+	router.GET("/:id", h.GetProjectHandler)
+	router.PUT("/:id", h.UpdateProjectHandler)
+	router.DELETE("/:id", h.DeleteProjectHandler)
+	router.GET("/myprojects", h.GetMyProjectsHandler)
 }
 
 // CreateProjectHandler handles POST /projects
@@ -101,6 +109,33 @@ func (h *Handlers) UpdateProjectHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// DeleteProjectHandler handles DELETE /projects/:id
+func (h *Handlers) DeleteProjectHandler(c *gin.Context) {
+	id, err := parseID(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid project ID"})
+		return
+	}
+
+	// Get requestor from auth middleware
+	requestorID := c.GetString("user_id")
+
+	err = h.service.DeleteProject(id, requestorID)
+	if err != nil {
+		status := http.StatusInternalServerError
+		switch err {
+		case ErrProjectNotFound:
+			status = http.StatusNotFound
+		case ErrUnauthorizedAccess:
+			status = http.StatusForbidden
+		}
+		c.JSON(status, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusNoContent, gin.H{"message": "project deleted successfully"})
+}
+
 // Helper function to parse ID from URL params
 func parseID(idParam string) (uint, error) {
 	// You'll need to implement proper ID parsing
@@ -108,4 +143,20 @@ func parseID(idParam string) (uint, error) {
 	var id uint
 	_, err := fmt.Sscanf(idParam, "%d", &id)
 	return id, err
+}
+
+func (h *Handlers) GetMyProjectsHandler(c *gin.Context) {
+	requestorID, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not retrieve user ID from context"})
+		return
+	}
+
+	projects, err := h.service.GetProjectsByOwnerID(fmt.Sprintf("%v", requestorID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch projects"})
+		return
+	}
+
+	c.JSON(http.StatusOK, projects)
 }

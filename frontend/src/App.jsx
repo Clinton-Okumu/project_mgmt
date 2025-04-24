@@ -10,6 +10,7 @@ import SignupPage from "./pages/RegisterPage";
 import Dashboard from "./pages/DashboardPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import MainLayout from "./layouts/MainLayout";
+import NewProjectPge from "./pages/NewProjectPage";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/newprojects" element={<NewProjectPge />} />
         </Route>
 
         {/*default fallback*/}

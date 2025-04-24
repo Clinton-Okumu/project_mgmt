@@ -5,6 +5,7 @@ import (
 	"backend/internal/auth"
 	"backend/internal/db"
 	"backend/internal/milestone"
+	"backend/internal/project"
 	"backend/internal/task"
 	"backend/internal/user"
 	"backend/middleware"
@@ -69,6 +70,13 @@ func main() {
 		milestoneHandler := milestone.NewHandler(milestoneService)
 		milestoneRoutes := protected.Group("/milestones")
 		milestoneHandler.RegisterRoutes(milestoneRoutes)
+
+		// project routes(protected)
+		projectRepo := project.NewRepository(database)
+		projectService := project.NewService(projectRepo)
+		projectHandler := project.NewHandler(projectService)
+		projectRoutes := protected.Group("/projects")
+		projectHandler.RegisterRoutes(projectRoutes)
 	}
 
 	// Define a simple welcome route
