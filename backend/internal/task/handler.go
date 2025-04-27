@@ -18,7 +18,7 @@ func NewHandler(service *Service) *Handler {
 func (h *Handler) RegisterRoutes(router *gin.RouterGroup) {
 	router.POST("/", h.CreateTask)
 	router.GET("/:id", h.GetTask)
-	router.PUT("/:id", h.UpdateTask)
+	router.PATCH("/:id", h.UpdateTask)
 	router.DELETE("/:id", h.DeleteTask)
 	router.GET("/projects/:projectID/tasks", h.ListTasksByProject)
 	router.GET("/users/:userID/tasks", h.ListTasksByUser)
@@ -102,7 +102,7 @@ func (h *Handler) DeleteTask(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Task deleted successfully"})
+	c.Status(http.StatusNoContent)
 }
 
 func (h *Handler) ListTasksByProject(c *gin.Context) {
