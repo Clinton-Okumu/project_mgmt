@@ -18,7 +18,7 @@ func NewHandler(service *Service) *Handler {
 func (h *Handler) RegisterRoutes(router *gin.RouterGroup) {
 	router.POST("/", h.CreateMilestone)
 	router.GET("/:id", h.GetMilestone)
-	router.PUT("/:id", h.UpdateMilestone)
+	router.PATCH("/:id", h.UpdateMilestone)
 	router.DELETE("/:id", h.DeleteMilestone)
 	router.GET("/project/:projectID", h.GetMilestonesByProjectID)
 }

@@ -10,10 +10,10 @@ type CreateRequest struct {
 }
 
 type UpdateRequest struct {
-	Title       string     `json:"title"`
-	Description string     `json:"description"`
+	Title       string     `json:"title" binding:"omitempty"`
+	Description string     `json:"description" binding:"omitempty"`
 	DueDate     *time.Time `json:"due_date"`
-	ProjectID   uint       `json:"project_id"`
+	ProjectID   uint       `json:"project_id" binding:"omitempty"`
 }
 
 type Response struct {

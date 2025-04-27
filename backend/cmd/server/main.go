@@ -40,6 +40,7 @@ func main() {
 		userService := user.NewService(userRepo)
 		userHandler := user.NewHandler(userService)
 		userRoutes := api.Group("/users")
+		userRoutes.Use(auth.AuthMiddleware(cfg))
 		userHandler.RegisterRoutes(userRoutes)
 
 		// Authentication Routes (Login)
