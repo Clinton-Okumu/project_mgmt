@@ -90,7 +90,7 @@ func (h *Handler) DeleteMilestone(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusNoContent, nil)
+	c.Status(http.StatusNoContent)
 }
 
 func (h *Handler) GetMilestonesByProjectID(c *gin.Context) {
