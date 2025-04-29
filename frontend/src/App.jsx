@@ -24,7 +24,7 @@ const App = () => {
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/newprojects" element={<NewProjectPge />} />
+          <Route path="/new-project" element={<NewProjectPge />} />
         </Route>
 
         {/*default fallback*/}
