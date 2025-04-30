@@ -9,6 +9,7 @@ type Repository interface {
 	Update(project *Project) error
 	Delete(id uint) error
 	ExistsWithName(name string, ownerID string) (bool, error)
+	GetAll() ([]*Project, error)
 }
 
 type gormRepository struct {
@@ -17,6 +18,14 @@ type gormRepository struct {
 
 func NewRepository(db *gorm.DB) Repository {
 	return &gormRepository{db: db}
+}
+
+func (r *gormRepository) GetAll() ([]*Project, error) {
+	var projects []*Project
+	if err := r.db.Find(&projects).Error; err != nil {
+		return nil, err
+	}
+	return projects, nil
 }
 
 func (r *gormRepository) Create(project *Project) error {

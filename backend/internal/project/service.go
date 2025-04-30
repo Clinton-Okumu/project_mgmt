@@ -19,6 +19,19 @@ func NewService(repo Repository) *Service {
 	return &Service{repo: repo}
 }
 
+func (s *Service) GetAllProjects() ([]*Response, error) {
+	projects, err := s.repo.GetAll()
+	if err != nil {
+		return nil, err
+	}
+
+	var responses []*Response
+	for _, p := range projects {
+		responses = append(responses, s.projectToResponse(p))
+	}
+	return responses, nil
+}
+
 // CreateProject handles business logic for project creation
 func (s *Service) CreateProject(req CreateRequest) (*Response, error) {
 	// Check for existing project name
