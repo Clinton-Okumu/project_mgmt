@@ -16,11 +16,22 @@ func NewHandler(service *Service) *Handlers {
 }
 
 func (h *Handlers) RegisterRoutes(router *gin.RouterGroup) {
+	router.GET("/", h.GetAllProjectsHandler)
 	router.POST("/", h.CreateProjectHandler)
 	router.GET("/:id", h.GetProjectHandler)
 	router.PATCH("/:id", h.UpdateProjectHandler)
 	router.DELETE("/:id", h.DeleteProjectHandler)
 	router.GET("/myprojects", h.GetMyProjectsHandler)
+}
+
+func (h *Handlers) GetAllProjectsHandler(c *gin.Context) {
+	projects, err := h.service.GetAllProjects()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch projects"})
+		return
+	}
+
+	c.JSON(http.StatusOK, projects)
 }
 
 // CreateProjectHandler handles POST /projects
