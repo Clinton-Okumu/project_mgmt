@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import ProjectForm from '../components/newprojectpage/ProjectForm';
 import PageHeader from '../components/newprojectpage/PageHeader';
+import { useNavigate } from 'react-router-dom';
 
 const NewProjectPage = () => {
+    const navigate = useNavigate();
     const handleSubmit = (projectData) => {
         // Handle form submission, e.g. API call to create project
         console.log('Creating project:', projectData);
@@ -12,7 +14,7 @@ const NewProjectPage = () => {
     const handleCancel = () => {
         // Navigate back to dashboard
         console.log('Cancelled project creation');
-        // Example: navigate('/dashboard');
+        navigate('/projects');
     };
 
     return (
