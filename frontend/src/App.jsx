@@ -13,6 +13,7 @@ import MainLayout from "./layouts/MainLayout";
 import NewProjectPge from "./pages/NewProjectPage";
 import ArchivedPage from "./pages/ArchivedPage";
 import HelpPage from "./pages/HelpPage";
+import ProjectDeatil from "./pages/ProjectDetailsPage";
 
 const App = () => {
     return (
@@ -29,6 +30,7 @@ const App = () => {
                     <Route path="/new-project" element={<NewProjectPge />} />
                     <Route path="/archived" element={<ArchivedPage />} />
                     <Route path="/help" element={<HelpPage />} />
+                    <Route path="/view-details" element={<ProjectDeatil />} />
                 </Route>
 
                 {/*default fallback*/}
