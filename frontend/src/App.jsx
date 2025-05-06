@@ -30,7 +30,7 @@ const App = () => {
                     <Route path="/new-project" element={<NewProjectPge />} />
                     <Route path="/archived" element={<ArchivedPage />} />
                     <Route path="/help" element={<HelpPage />} />
-                    <Route path="/view-details" element={<ProjectDeatil />} />
+                    <Route path="/projects/:projectId" element={<ProjectDeatil />} />
                 </Route>
 
                 {/*default fallback*/}
