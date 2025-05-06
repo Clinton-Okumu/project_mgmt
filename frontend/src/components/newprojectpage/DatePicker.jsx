@@ -1,14 +1,14 @@
 import React from 'react';
 
 const DatePicker = ({ value, onChange, placeholder }) => {
-  // In a real implementation, you might use a date picker library
-  // This is a simplified version that mimics the UI in the image
-  
+  // Handle the case where value is null
+  const inputValue = value === null ? '' : value;
+
   return (
     <div className="relative">
       <input
         type="text"
-        value={value}
+        value={inputValue}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className="w-full bg-gray-800 border border-gray-700 rounded p-2 pr-10 text-white"

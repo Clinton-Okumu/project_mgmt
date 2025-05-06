@@ -22,7 +22,7 @@ const ProjectCard = ({
     };
 
     const handleViewDetails = () => {
-        navigate(`/projects/${id}`);
+        navigate(`/view-details`);
     };
 
     return (
