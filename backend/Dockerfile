@@ -1,5 +1,5 @@
 # Stage 1: Build the Go application
-FROM golang:1.21-alpine AS builder
+FROM golang:1.23-alpine AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go application
-RUN go build -o project-mgmt-api ./cmd/api
+RUN go build -o project-mgmt-api ./cmd/server
 
 # Stage 2: Create a minimal runtime image
 FROM alpine:latest
