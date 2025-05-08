@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    environment:
+      - DB_HOST=db
+    env_file:
+      - ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+
+  website:
+    build: ./website/project_mgmt_website
+    container_name: website
+    ports:
+      - "4000:80"
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: clinton
+      POSTGRES_PASSWORD: blindspot
+      POSTGRES_DB: project_mgmt
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clinton"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
